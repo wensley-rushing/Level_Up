@@ -16,8 +16,8 @@ const CallPage = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          phone_number: '+917020744317',
-          pathway_id: 'c5cdd9c1-8adb-43ec-9261-5638ffa9b9e5',
+          phone_number: '+919930679651',
+          pathway_id: '39825759-c3c4-4759-9858-b4e26bde8712',
         }),
       });
 

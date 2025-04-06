@@ -116,7 +116,7 @@ const AgentPlayground = () => {
         <AgentModal 
           agent={selectedAgent} 
           onClose={closeModal} 
-          baseUrl="https://glowing-werewolf-trusted.ngrok-free.app"
+          baseUrl="http://127.0.0.1:8000"
         />
       )}
     </div>

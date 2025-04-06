@@ -27,7 +27,7 @@ const YouTubeAnalyticsDashboard = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const email = "ntpjc2vinayak@gmail.com"
+    const email = "saritapbhatia@gmail.com"
     const API_URL = "http://localhost:6001"
 
     // Fallback data

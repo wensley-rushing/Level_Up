@@ -2,18 +2,15 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'https://glowing-werewolf-trusted.ngrok-free.app';
-
+const API_BASE_URL = 'http://127.0.0.1:8000'
 // Add default headers for all requests
-const headers = {
-  'ngrok-skip-browser-warning': 'true'
-};
+
 
 const apiService = {
   // Comment Analyzer
   summarizeComments: async (data) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/summarize-comments/`, data, { headers });
+      const response = await axios.post(`${API_BASE_URL}/api/summarize-comments/`, data );
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Failed to summarize comments');
@@ -23,7 +20,7 @@ const apiService = {
   // Context Bridge
   processTweet: async (data) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/process-tweet/`, data, { headers });
+      const response = await axios.post(`${API_BASE_URL}/api/process-tweet/`, data);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Failed to process tweet');
@@ -33,7 +30,7 @@ const apiService = {
   // Add to apiService object
   factCheck: async (data) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/fact-check/`, data, { headers });
+      const response = await axios.post(`${API_BASE_URL}/api/fact-check/`, data);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Failed to check facts');
@@ -43,7 +40,7 @@ const apiService = {
   // Add to apiService object in src/services/api.js
   impersonateCelebrity: async (data) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/generate/`, data, { headers });
+      const response = await axios.post(`${API_BASE_URL}/api/generate/`, data);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Failed to generate celebrity impersonation');
@@ -52,7 +49,7 @@ const apiService = {
   
   listCelebrities: async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/celebrities/`, { headers });
+      const response = await axios.get(`${API_BASE_URL}/api/celebrities/`);
       console.log('Response from listCelebrities:', response.data); // Debugging line
       return response.data;
     } catch (error) {
@@ -64,7 +61,7 @@ const apiService = {
   generateMeme: async (data) => {
     try {
       console.log('Data being sent to generateMeme:', data); // Debugging line
-      const response = await axios.post(`${API_BASE_URL}/api/generate-meme/`, data, { headers });
+      const response = await axios.post(`${API_BASE_URL}/api/generate-meme/`, data);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.error || 'Failed to generate meme');
@@ -76,7 +73,6 @@ const apiService = {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/analyze-image/`, formData, {
         headers: {
-          ...headers,
           'Content-Type': 'multipart/form-data'
         }
       });
@@ -91,7 +87,6 @@ const apiService = {
     try {
       const response = await axios.post(`${API_BASE_URL}/api/analyze/`, formData, {
         headers: {
-          ...headers,
           'Content-Type': 'multipart/form-data'
         }
       });

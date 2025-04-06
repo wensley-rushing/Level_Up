@@ -18,15 +18,15 @@ logger = logging.getLogger(__name__)
 
 # List of API keys with proper key rotation
 GEMINI_API_KEYS = [
-    "AIzaSyBUfN2I6hjhtc2LZvHGWNUgZv2",
-    "AIzaSyAHY5bRJ4GVzN51M5KSDytP4Ig72M0SnUM",
-    "AIzaSyDNXO1gc6li3cmjUC5pF4aNcCCuFTBzFPQ",
-    "AIzaSyBRkVE-qoVwMjIRlRdhDFVZHnAFTXFn6fM",
-    "AIzaSyD9CL5JjdOOFk5nm2jQeKA7jP7Tma7YOLk",
-    "AIzaSyCkeBrTtttbB9ovthH1JlE5E1qadZ-LIIk",
-    "AIzaSyDC8_t7AFVUEeFtWx8SrkTU1drPfdPKjik",
-    "AIzaSyDv-WLGNt7s5LGEHX1GZPTs7ulOLEezUKo",
-    "AIzaSyAv3XFkNOYrkfppG1wgMrZ9VLJwtnd-M0g"
+    "AIzaSyBMmXJ8_jnJPsb1WgMlJfFV9oaRZw2FdGs",
+    "AIzaSyDCOMT67gpQX8IEcZLiyMgYoRtOVMH-OeU",
+    "AIzaSyAJJlzXtLEfBEJlMbbSIdprGgfC9BitAO0",
+    "AIzaSyDq0tPrzc2Oz3tOapSKgB97jYwv1Pukh0g",
+    "AIzaSyDt8PGen4JCppCJH3y1GiXgpcZxTxI-ejI",
+    "AIzaSyAVL6k_vJ22cNYVyfEQTJTv1yHhaGECm5c",
+    "AIzaSyDuf0EwO-bLu2retfUX0iMIqxzIjT13ZRg",
+    "AIzaSyA7rqT-L4hUOirsV-ckYQg1sNQVwSD53bQ",
+    "AIzaSyAKQxo1Q2VOtNVjNJSeMMUx4YRSxOrwWAA"
 ]
 
 # Add default key to the list if not already present
@@ -101,9 +101,21 @@ def generate_fallback_image(text):
 
 def generate_image(prompt, max_retries=5, initial_backoff=1):
     """Generate an image using Gemini with improved error handling and key rotation"""
+    used_keys = set()  # Track keys already used in this function call
+    
     for attempt in range(max_retries):
         try:
-            api_key = get_random_gemini_key()
+            # Get available keys that haven't been used in this function call yet
+            available_keys = [k for k in list(api_key_queue) if k not in used_keys and k not in disabled_keys]
+            
+            if available_keys:
+                # Select a random key from available keys
+                api_key = random.choice(available_keys)
+            else:
+                # If all keys have been tried or are disabled, fall back to rotation logic
+                api_key = get_random_gemini_key()
+            
+            used_keys.add(api_key)  # Mark this key as used for this function call
             logger.info(f"Attempting image generation (attempt {attempt+1}/{max_retries})")
             
             from google import genai

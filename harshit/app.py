@@ -535,10 +535,10 @@ def api_dashboard():
         total_views = int(channel_stats.get('viewCount', 0))
         
         subs_gained = sum(float(row[6]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 6 else 0
-        total_video_views = sum(float(row[0]) for row in video_analytics) if video_analytics else 0
-        total_likes = sum(float(row[3]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 3 else 0
-        total_comments = sum(float(row[4]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 4 else 0
-        total_shares = sum(float(row[5]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 5 else 0
+        total_video_views = sum(float(row[1]) for row in video_analytics) if video_analytics else 0  # Changed index from 0 to 1
+        total_likes = sum(float(row[4]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 4 else 0
+        total_comments = sum(float(row[5]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 5 else 0
+        total_shares = sum(float(row[6]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 6 else 0
         
         # Calculate engagement rate
         engagement_rate = round((total_likes + total_comments + total_shares) / total_video_views * 100, 1) if total_video_views > 0 else 0
@@ -928,4 +928,4 @@ def api_content_strategy():
         }), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=6001)

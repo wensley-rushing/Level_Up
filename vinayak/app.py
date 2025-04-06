@@ -7,7 +7,7 @@ CORS(app)  # Enable CORS for all routes
 
 # 🔐 Bland.ai API details
 BLAND_API_URL = "https://api.bland.ai/v1/calls"
-BLAND_API_KEY = "org_12928eb3ba4076ace049014110ab4667ec6325a2379c1c5d6b79d1f460cdd18c2d71c582953d2543c98169"  # Replace this with your real token
+BLAND_API_KEY = "org_a8a8312efa4234bb5112fefd6dde6b611a82d26765e203f35b3fe8c04999bec4c92d269f4f8c96c8d06969"  # Replace this with your real token
 
 @app.route('/start-call', methods=['POST'])
 def start_call():

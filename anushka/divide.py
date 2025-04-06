@@ -50,15 +50,15 @@ app = Flask(__name__)
 
 # Load API keys from environment or config
 GEMINI_API_KEYS = [
-"AIzaSyDm1DfJP6_auQERgrR4RwZIN5rO-VlSftI",
-"AIzaSyAbL8NWypYhc86AtTXdjOTiMujIHj-AQc4",
-"AIzaSyCBCFt8JLzrUWvdNtH1U5TxnEvddweSfoU",
-"AIzaSyDTHQaaTpAf8NqoAQmXXHwdlO2cZGzvrNI",
-"AIzaSyAib9-GFHW-CRiSxJeE_w3AAu2_KEaVtAM",
-"AIzaSyC_zvq1uoMZz9d4NRgyWpY-Y2zgedXjNGQ",
-"AIzaSyDC8_t7AFVUEeFtWx8SrkTU1drPfdPKjik",
-"AIzaSyDv-WLGNt7s5LGEHX1GZPTs7ulOLEezUKo",
-"AIzaSyAv3XFkNOYrkfppG1wgMrZ9VLJwtnd-M0g"
+    "AIzaSyBMmXJ8_jnJPsb1WgMlJfFV9oaRZw2FdGs",
+    "AIzaSyDCOMT67gpQX8IEcZLiyMgYoRtOVMH-OeU",
+    "AIzaSyAJJlzXtLEfBEJlMbbSIdprGgfC9BitAO0",
+    "AIzaSyDq0tPrzc2Oz3tOapSKgB97jYwv1Pukh0g",
+    "AIzaSyDt8PGen4JCppCJH3y1GiXgpcZxTxI-ejI",
+    "AIzaSyAVL6k_vJ22cNYVyfEQTJTv1yHhaGECm5c",
+    "AIzaSyDuf0EwO-bLu2retfUX0iMIqxzIjT13ZRg",
+    "AIzaSyA7rqT-L4hUOirsV-ckYQg1sNQVwSD53bQ",
+    "AIzaSyAKQxo1Q2VOtNVjNJSeMMUx4YRSxOrwWAA"
 ]
 
 COMPOSIO_API_KEY = os.environ.get("COMPOSIO_API_KEY", "YOUR_COMPOSIO_API_KEY")
