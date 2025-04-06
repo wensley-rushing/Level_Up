@@ -1,2 +1,5 @@
 .env
 myenv
+client_secret.json
+*.pickle
+__pycache__/

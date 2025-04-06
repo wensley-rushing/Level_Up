@@ -1,4 +1,3 @@
-
 from flask import Flask, jsonify, request
 import os
 import pickle
@@ -53,16 +52,8 @@ def get_video_analytics(credentials, days=365):
             maxResults=200,
             sort='-views'
         ).execute()
-        
-        rows = response.get('rows', [])
-        # Convert numeric strings to float, leave video ID as string
-        processed_rows = []
-        for row in rows:
-            video_id = row[0]  # Keep video ID as string
-            metrics = [float(val) if isinstance(val, (str, int)) and i > 0 else val for i, val in enumerate(row)]
-            processed_rows.append([video_id] + metrics[1:])
-        
-        return processed_rows
+        print(f"Response rows: {response.get('rows', 'None')}")
+        return response.get('rows', [])
     
     except HttpError as e:
         print(f"Video Analytics API Error: {e}")
@@ -204,208 +195,71 @@ def format_data_for_ai(video_analytics, metadata):
     videos = []
     for row in video_analytics:
         video_id = row[0]
-        views = float(row[1])
-        watch_time = float(row[2])
-        avg_duration = float(row[3])
-        likes = float(row[4])
-        comments = float(row[5])
-        shares = float(row[6]) if len(row) > 6 else 0
         meta = metadata.get(video_id, {})
-        
         videos.append({
-            'id': video_id,
             'title': meta.get('title', 'Unknown'),
+            'views': float(row[1]),
+            'watchTime': float(row[2]),
+            'avgDuration': float(row[3]),
+            'likes': float(row[4]),
+            'comments': float(row[5]),
             'publishedAt': meta.get('publishedAt', ''),
-            'metrics': {
-                'views': views,
-                'watchTime': watch_time,
-                'avgDuration': avg_duration,
-                'likes': likes,
-                'comments': comments,
-                'shares': shares,
-                'engagement': (likes + comments) / views if views > 0 else 0
-            },
             'tags': meta.get('tags', []),
             'description': meta.get('description', '')
         })
-
-    # Sort by views
-    videos.sort(key=lambda x: x['metrics']['views'], reverse=True)
-    
-    # Calculate channel metrics
-    total_views = sum(v['metrics']['views'] for v in videos)
-    total_watch_time = sum(v['metrics']['watchTime'] for v in videos)
-    avg_engagement = sum(v['metrics']['engagement'] for v in videos) / len(videos) if videos else 0
     
     return {
-        'videos': videos,
-        'channel_metrics': {
-            'total_videos': len(videos),
-            'total_views': total_views,
-            'total_watch_time': total_watch_time,
-            'avg_engagement': avg_engagement,
-            'best_video': videos[0] if videos else None
-        }
+        'videos': videos
     }
 
 def call_ai_model(data):
-    """Call the AI model with the video data"""
+    """Call the AI model (like Gemini-1.5-pro) with the video data"""
+    # This would be your API call to Gemini or another model
     import google.generativeai as genai
     
+    # Configure the API key (You need to set this environment variable or replace with your key)
     genai.configure(api_key=os.environ.get('GEMINI_API_KEY', 'YOUR_API_KEY_HERE'))
     
-    channel_metrics = data['channel_metrics']
-    best_video = channel_metrics.get('best_video', {})
+    # Format the prompt
+    prompt = """
+    As a YouTube content strategy expert, analyze the following channel data and provide recommendations.
+    The goal is to help the creator understand:
+    1. What content types perform best for their channel
+    2. Optimal posting frequency and schedule
+    3. Audience retention strategies
+    4. Growth opportunities
     
-    prompt = f"""
-    As a YouTube Analytics Expert, analyze this channel's performance data and provide specific, data-driven recommendations:
-
-    Channel Overview:
-    - Total Videos: {channel_metrics['total_videos']}
-    - Total Views: {channel_metrics['total_views']}
-    - Average Engagement Rate: {channel_metrics['avg_engagement']:.2%}
-    - Best Performing Video: "{best_video.get('title', 'N/A')}" with {best_video.get('metrics', {}).get('views', 0)} views
-
-    Videos Performance Data:
-    {json.dumps([{
-        'title': v['title'],
-        'views': v['metrics']['views'],
-        'engagement': v['metrics']['engagement'],
-        'watchTime': v['metrics']['watchTime']
-    } for v in data['videos'][:5]], indent=2)}
-
-    Based on this specific data, provide a detailed analysis in this JSON format:
-    {{
-        "content_types_recommendation": {{
-            "analysis": "Analyze patterns in top-performing videos and specify what works",
-            "recommendations": [
-                "3-4 specific, actionable recommendations based on the data"
-            ]
-        }},
-        "posting_strategy": {{
-            "frequency": "Recommended posting frequency based on current performance",
-            "schedule": "Best times to post based on view patterns",
-            "consistency": "Specific advice on maintaining upload schedule"
-        }},
-        "audience_retention_tips": {{
-            "improve_video_quality": "Specific advice based on watch time data",
-            "compelling_intros": "Intro recommendations based on retention patterns",
-            "engaging_editing": "Editing tips based on viewer behavior",
-            "call_to_actions": "When and how to add CTAs based on engagement",
-            "storytelling": "Content structure recommendations",
-            "add_timestamps_chapters": "Video organization advice"
-        }},
-        "growth_opportunities": {{
-            "thumbnails": "Thumbnail strategy based on top videos",
-            "tags_and_keywords": "SEO recommendations based on successful videos",
-            "promotion": "Specific promotion strategies",
-            "collaborations": "Collaboration suggestions",
-            "playlists": "Content organization tips",
-            "community_engagement": "Engagement strategy based on comment patterns"
-        }}
-    }}
-
-    Focus on being specific and data-driven. Use actual numbers and patterns from the provided data.
-    """
+    Channel data:
+    {}
     
+    Provide specific, actionable recommendations in JSON format with these keys:
+    - content_types_recommendation: what type of content performs best and what should they make more of
+    - posting_strategy: optimal posting frequency and schedule
+    - audience_retention_tips: how to keep viewers watching longer
+    - growth_opportunities: specific ways to grow the channel
+    """.format(json.dumps(data, indent=2))
+    
+    # Call the model
     model = genai.GenerativeModel('gemini-1.5-pro')
     response = model.generate_content(prompt)
-    
-    try:
-        # Get the raw response text
-        response_text = response.text.strip()
-        
-        # Remove any markdown code block markers if present
-        if response_text.startswith('json'):
-            response_text = response_text[7:]
-        if response_text.endswith(''):
-            response_text = response_text[:-3]
-        
-        # Clean up any potential leading/trailing whitespace
-        response_text = response_text.strip()
-        
-        # Try to parse the JSON
-        json_data = json.loads(response_text)
-        print(json_data)
-        
-        # Validate the required structure
-        required_keys = [
-            'content_types_recommendation',
-            'posting_strategy',
-            'audience_retention_tips',
-            'growth_opportunities'
-        ]
-        
-        for key in required_keys:
-            if key not in json_data:
-                raise ValueError(f"Missing required key: {key}")
-        
-        return json.dumps(json_data, indent=2)
-        
-    except json.JSONDecodeError as e:
-        print(f"JSON parsing error: {e}")
-        print(f"Raw response: {response_text}")
-        return json.dumps({
-            "error": "Failed to parse AI response",
-            "content_types_recommendation": {
-                "analysis": "Analysis unavailable",
-                "recommendations": ["Unable to generate recommendations"]
-            },
-            "posting_strategy": {
-                "frequency": "N/A",
-                "schedule": "N/A",
-                "consistency": "N/A"
-            },
-            "audience_retention_tips": {
-                "improve_video_quality": "N/A",
-                "compelling_intros": "N/A",
-                "engaging_editing": "N/A",
-                "call_to_actions": "N/A",
-                "storytelling": "N/A",
-                "add_timestamps_chapters": "N/A"
-            },
-            "growth_opportunities": {
-                "thumbnails": "N/A",
-                "tags_and_keywords": "N/A",
-                "promotion": "N/A",
-                "collaborations": "N/A",
-                "playlists": "N/A",
-                "community_engagement": "N/A"
-            }
-        })
+    print(response)
+    return response.text
 
 def parse_ai_response(response):
     """Parse the AI response into structured data"""
     try:
-        # Clean up the response string
-        cleaned_response = response.strip()
-        if cleaned_response.startswith('json'):
-            cleaned_response = cleaned_response[7:]
-        if cleaned_response.endswith(''):
-            cleaned_response = cleaned_response[:-3]
-            
-        # Parse JSON
-        ai_data = json.loads(cleaned_response)
-        
-        # Format the insights
+        # Try to parse as JSON first
+        ai_data = json.loads(response)
         return {
-            'ai_content_recommendation': {
-                'analysis': ai_data.get('content_types_recommendation', {}).get('analysis', ''),
-                'recommendations': ai_data.get('content_types_recommendation', {}).get('recommendations', [])
-            },
-            'ai_posting_strategy': ai_data.get('posting_strategy', {}),
-            'ai_audience_retention_tips': ai_data.get('audience_retention_tips', {}),
-            'ai_growth_opportunities': ai_data.get('growth_opportunities', {})
+            'ai_content_recommendation': ai_data.get('content_types_recommendation', ''),
+            'ai_posting_strategy': ai_data.get('posting_strategy', ''),
+            'ai_audience_retention_tips': ai_data.get('audience_retention_tips', ''),
+            'ai_growth_opportunities': ai_data.get('growth_opportunities', '')
         }
-    except json.JSONDecodeError as e:
-        print(f"Error parsing AI response: {e}")
-        print(f"Raw response: {response}")
+    except json.JSONDecodeError:
+        # If not JSON, just return the text
         return {
-            'error': 'Unable to parse AI recommendations',
-            'debug_info': {
-                'error_message': str(e),
-                'raw_response': response[:500]  # First 500 chars for debugging
-            }
+            'ai_recommendation': response
         }
 
 def generate_insights_for_small_channel(video_analytics, metadata):
@@ -680,11 +534,11 @@ def api_dashboard():
         total_subscribers = int(channel_stats.get('subscriberCount', 0))
         total_views = int(channel_stats.get('viewCount', 0))
         
-        subs_gained = sum(row[6] for row in video_analytics) if video_analytics and len(video_analytics[0]) > 6 else 0
-        total_video_views = sum(row[1] for row in video_analytics) if video_analytics else 0
-        total_likes = sum(row[3] for row in video_analytics) if video_analytics and len(video_analytics[0]) > 3 else 0
-        total_comments = sum(row[4] for row in video_analytics) if video_analytics and len(video_analytics[0]) > 4 else 0
-        total_shares = sum(row[5] for row in video_analytics) if video_analytics and len(video_analytics[0]) > 5 else 0
+        subs_gained = sum(float(row[6]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 6 else 0
+        total_video_views = sum(float(row[0]) for row in video_analytics) if video_analytics else 0
+        total_likes = sum(float(row[3]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 3 else 0
+        total_comments = sum(float(row[4]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 4 else 0
+        total_shares = sum(float(row[5]) for row in video_analytics) if video_analytics and len(video_analytics[0]) > 5 else 0
         
         # Calculate engagement rate
         engagement_rate = round((total_likes + total_comments + total_shares) / total_video_views * 100, 1) if total_video_views > 0 else 0
@@ -1074,5 +928,4 @@ def api_content_strategy():
         }), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=6001)
-
+    app.run(debug=True, host='0.0.0.0', port=5000)
