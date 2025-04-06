@@ -1,1 +1,79 @@
 @import "tailwindcss";
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+
+
+/* Add this to your global CSS file */
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  .introduction {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 50;
+    background-color: black;
+    color: white;
+  }
+  
+  .introduction p {
+    display: flex;
+    font-size: 3rem;
+    font-weight: 600;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .introduction p span {
+    margin-right: 10px;
+    display: block;
+    height: 0.9rem;
+    width: 0.9rem;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  .introduction svg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .introduction path {
+    fill: rgb(32, 32, 32);
+  }
+  
+  .grid-item {
+    opacity: 0.1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Add responsive styles */
+  @media (max-width: 768px) {
+    .introduction p {
+      font-size: 2rem;
+    }
+  }
+  
