@@ -48,19 +48,19 @@ app = Flask(__name__)
 CORS(app)
 # Load API keys from environment or config
 GEMINI_API_KEYS = [
-"AIzaSyBUfN2I6hjhtc2LZvHGWNUgZv2"
-"AIzaSyAHY5bRJ4GVzN51M5KSDytP4Ig72M0SnUM",
-"AIzaSyDNXO1gc6li3cmjUC5pF4aNcCCuFTBzFPQ",
-"AIzaSyBRkVE-qoVwMjIRlRdhDFVZHnAFtXFn6fM",
-"AIzaSyD9CL5JjdOOFk5nm2jQeKA7jP7Tma7YOLk",
-"AIzaSyCkeBrTtttbB9ovthH1JlE5E1qadZ-LIIk",
-"AIzaSyDC8_t7AFVUEeFtWx8SrkTU1drPfdPKjik",
-"AIzaSyDv-WLGNt7s5LGEHX1GZPTs7ulOLEezUKo",
-"AIzaSyAv3XFkNOYrkfppG1wgMrZ9VLJwtnd-M0g"
+    "AIzaSyBvj4nkbFJzPXdAB3F2qhSOhKKc1UV5px0",
+"AIzaSyDAsUWDI4FUdQa8wcHC63e6Xw457BpNNQI",
+"AIzaSyBAGXNiT80U2goEq8vSUQ-xPSkxoK7hERw",
+"AIzaSyB860pwZ7iFO5WmD33KD836maP3LQ__8jM",
+"AIzaSyAjhM79NvsxFgJ5yM4WnVdE9qYXMiFJccE",
+"AIzaSyBYF4MuhdKZrOnqN5yiJ21meChjYYp7mIQ",
+"AIzaSyAsUBomEdfQIUGELGNsPvs_S7pj-T4GxdI",
+"AIzaSyDPJ4P-e-496qCTvqm_Vh420-X7ZWf_OR4",
+"AIzaSyD6Wp-B8MTdVPNyk-gAec2NA_CSTCxEu7w",
+"AIzaSyBe7d2f_Vub5b2DZsdVPB1OUcVCen3K4_c"
 ]
-
 COMPOSIO_API_KEY = os.environ.get("COMPOSIO_API_KEY", "YOUR_COMPOSIO_API_KEY")
-SERP_API_KEY = os.environ.get("SERP_API_KEY", "YOUR_SERP_API_KEY")
+SERP_API_KEY = os.environ.get("SERP_API_KEY", "db997ee3c393ed490769c69d9e7dfe434efd62c9b2372ad73d470266124f9cbb")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD", "YOUR_EMAIL_PASSWORD")
 
 # Function to get a random API key

@@ -1,4 +1,3 @@
-
 // src/components/AgentModal.jsx
 import React, { useState, useEffect } from 'react';
 import apiService from '../services/api';
@@ -148,8 +147,8 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             throw new Error('Please select a celebrity');
           }
           response = await apiService.impersonateCelebrity({
-            celebrity: selectedCelebrity,
-            tweet: originalTweet
+            user_command: selectedCelebrity,
+            original_tweet: originalTweet
           });
           break;
 
@@ -177,7 +176,6 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
               tweet_text: tweetText
             });
             break;
-          
         
         
 
@@ -205,9 +203,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Tweet Context:</label>
+              <label className="block text-black mb-2">Tweet Context:</label>
               <textarea
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                 rows="2"
                 value={tweetContext}
                 onChange={(e) => setTweetContext(e.target.value)}
@@ -217,9 +215,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             </div>
             
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Comments (JSON Array):</label>
+              <label className="block text-black mb-2">Comments (JSON Array):</label>
               <textarea
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent font-mono text-sm"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent font-mono text-sm text-black"
                 rows="10"
                 value={comments}
                 onChange={(e) => setComments(e.target.value)}
@@ -249,9 +247,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Tweet:</label>
+              <label className="block text-black mb-2">Tweet:</label>
               <textarea
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                 rows="3"
                 value={tweet}
                 onChange={(e) => setTweet(e.target.value)}
@@ -261,9 +259,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             </div>
             
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Instructions:</label>
+              <label className="block text-black mb-2">Instructions:</label>
               <textarea
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                 rows="3"
                 value={instructions}
                 onChange={(e) => setInstructions(e.target.value)}
@@ -278,9 +276,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Claim to Fact Check:</label>
+              <label className="block text-black mb-2">Claim to Fact Check:</label>
               <textarea
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                 rows="3"
                 value={claim}
                 onChange={(e) => setClaim(e.target.value)}
@@ -296,9 +294,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Select Celebrity:</label>
+              <label className="block text-black mb-2">Select Celebrity:</label>
               <select
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                 value={selectedCelebrity}
                 onChange={(e) => setSelectedCelebrity(e.target.value)}
                 required
@@ -313,9 +311,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             </div>
             
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Original Tweet:</label>
+              <label className="block text-black mb-2">Original Tweet:</label>
               <textarea
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                 rows="4"
                 value={originalTweet}
                 onChange={(e) => setOriginalTweet(e.target.value)}
@@ -330,9 +328,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
           return (
             <>
               <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Meme Description:</label>
+                <label className="block mb-2 text-black">Meme Description:</label>
                 <textarea
-                  className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                   rows="4"
                   value={memeInput}
                   onChange={(e) => setMemeInput(e.target.value)}
@@ -348,10 +346,10 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <>
             <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Upload Image:</label>
+              <label className="block mb-2 text-black">Upload Image:</label>
               <input
                 type="file"
-                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                 accept="image/*"
                 onChange={handleImageChange}
                 required
@@ -360,7 +358,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             
             {imagePreview && (
               <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Preview:</label>
+                <label className="block mb-2 text-black">Preview:</label>
                 <div className="border border-gray-300 rounded-lg p-2 flex justify-center">
                   <img 
                     src={imagePreview} 
@@ -377,10 +375,10 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
           return (
             <>
               <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Upload Tweet Screenshot:</label>
+                <label className="block text-black mb-2">Upload Tweet Screenshot:</label>
                 <input
                   type="file"
-                  className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                   accept="image/jpeg,image/png"
                   onChange={handleTweetImageChange}
                   required
@@ -389,7 +387,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
               
               {tweetImagePreview && (
                 <div className="mb-4">
-                  <label className="block text-gray-700 mb-2">Preview:</label>
+                  <label className="block mb-2 text-black">Preview:</label>
                   <div className="border border-gray-300 rounded-lg p-2 flex justify-center">
                     <img 
                       src={tweetImagePreview} 
@@ -401,9 +399,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
               )}
               
               <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Analysis Type:</label>
+                <label className="block mb-2 text-black">Analysis Type:</label>
                 <select
-                  className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                   value={analysisType}
                   onChange={(e) => setAnalysisType(e.target.value)}
                 >
@@ -419,9 +417,9 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             return (
               <>
                 <div className="mb-4">
-                  <label className="block text-gray-700 mb-2">Tweet Text:</label>
+                  <label className="block mb-2 text-black">Tweet Text:</label>
                   <textarea
-                    className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
                     rows="4"
                     value={tweetText}
                     onChange={(e) => setTweetText(e.target.value)}
@@ -435,14 +433,14 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
       default:
         return (
           <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Input:</label>
+            <label className="block mb-2 text-black">Input:</label>
             <textarea
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-400 focus:border-transparent text-black"
               rows="4"
               placeholder={`Enter your input for ${agent.name}...`}
               required
             ></textarea>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-black mt-2">
               This agent is not yet fully implemented. Stay tuned!
             </p>
           </div>
@@ -459,24 +457,24 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <div className="mt-6 bg-green-50 border border-green-200 rounded-lg overflow-hidden">
             <div className="bg-green-100 p-3 border-b border-green-200">
-              <h3 className="text-lg font-semibold text-gray-800">Comment Analysis Results</h3>
+              <h3 className="text-lg font-semibold text-black">Comment Analysis Results</h3>
             </div>
             <div className="p-4">
               {result.success ? (
                 <>
                   <div className="mb-4">
-                    <p className="text-sm text-gray-500">Total Comments Analyzed: {result.total_comments}</p>
+                    <p className="text-sm text-black">Total Comments Analyzed: {result.total_comments}</p>
                   </div>
                   
                   {Object.entries(result.summary).map(([key, value]) => (
                     <div key={key} className="mb-4">
-                      <h4 className="font-medium text-gray-700 mb-1">{key}</h4>
-                      <p className="bg-white p-3 rounded border border-gray-200">{value}</p>
+                      <h4 className="font-medium text-black mb-1">{key}</h4>
+                      <p className="bg-white p-3 rounded border border-gray-200 text-black">{value}</p>
                     </div>
                   ))}
                 </>
               ) : (
-                <p className="text-red-600">Analysis failed: {result.error}</p>
+                <p className="text-red-600 text-black">Analysis failed: {result.error}</p>
               )}
             </div>
           </div>
@@ -486,10 +484,10 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg overflow-hidden">
             <div className="bg-blue-100 p-3 border-b border-blue-200">
-              <h3 className="text-lg font-semibold text-gray-800">Tweet Processing Result</h3>
+              <h3 className="text-lg font-semibold text-black">Tweet Processing Result</h3>
             </div>
             <div className="p-4">
-              <div className="bg-white p-3 rounded border border-gray-200 whitespace-pre-wrap">
+              <div className="bg-white p-3 rounded border border-gray-200 whitespace-pre-wrap text-black">
                 {result.result}
               </div>
             </div>
@@ -500,35 +498,35 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
       return (
         <div className="mt-6 bg-green-50 border border-green-200 rounded-lg overflow-hidden">
           <div className="bg-green-100 p-3 border-b border-green-200">
-            <h3 className="text-lg font-semibold text-gray-800">Fact Check Results</h3>
+            <h3 className="text-lg font-semibold text-black">Fact Check Results</h3>
           </div>
           <div className="p-4">
             {result.analyses.langchain && (
               <div className="mb-4">
-                <h4 className="font-medium text-gray-700 mb-1">Analysis</h4>
-                <p className="bg-white p-3 rounded border border-gray-200">{result.analyses.langchain}</p>
+                <h4 className="font-medium text-black mb-1">Analysis</h4>
+                <p className="bg-white p-3 rounded border border-gray-200 text-black">{result.analyses.langchain}</p>
               </div>
             )}
             
             {result.analyses.gemini && (
               <div className="mb-4">
-                <h4 className="font-medium text-gray-700 mb-1">Advanced Analysis</h4>
-                <p className="bg-white p-3 rounded border border-gray-200">{result.analyses.gemini}</p>
+                <h4 className="font-medium text-black mb-1">Advanced Analysis</h4>
+                <p className="bg-white p-3 rounded border border-gray-200 text-black">{result.analyses.gemini}</p>
               </div>
             )}
             
             {result.analyses.wikipedia && (
               <div className="mb-4">
-                <h4 className="font-medium text-gray-700 mb-1">Related Sources</h4>
+                <h4 className="font-medium text-black mb-1">Related Sources</h4>
                 <div className="bg-white p-3 rounded border border-gray-200">
                   {result.analyses.wikipedia.found_articles > 0 ? (
-                    <ul className="list-disc pl-5">
+                    <ul className="list-disc pl-5 text-black">
                       {result.analyses.wikipedia.articles.map((article, index) => (
-                        <li key={index}>{article.title}</li>
+                        <li key={index} className="text-black">{article.title}</li>
                       ))}
                     </ul>
                   ) : (
-                    <p>No relevant sources found</p>
+                    <p className="text-black">No relevant sources found</p>
                   )}
                 </div>
               </div>
@@ -542,17 +540,17 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
       return (
         <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg overflow-hidden">
           <div className="bg-yellow-100 p-3 border-b border-yellow-200">
-            <h3 className="text-lg font-semibold text-gray-800">Celebrity Response</h3>
+            <h3 className="text-lg font-semibold text-black">Celebrity Response</h3>
           </div>
           <div className="p-4">
             <div className="mb-4">
-              <h4 className="font-medium text-gray-700 mb-1">Response from {result.celebrity_name}</h4>
+              <h4 className="font-medium text-black mb-1">Response from {result.celebrity_name}</h4>
               <div className="bg-white p-3 rounded border border-gray-200">
-                <p className="whitespace-pre-wrap">{result.response}</p>
+                <p className="whitespace-pre-wrap text-black">{result.response}</p>
               </div>
             </div>
             
-            <div className="mt-4 text-sm text-gray-500">
+            <div className="mt-4 text-sm text-black">
               <p>Original tweet: "{result.input_tweet}"</p>
             </div>
           </div>
@@ -563,7 +561,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
       return (
         <div className="mt-6 bg-pink-50 border border-pink-200 rounded-lg overflow-hidden">
           <div className="bg-pink-100 p-3 border-b border-pink-200">
-            <h3 className="text-lg font-semibold text-gray-800">Generated Meme</h3>
+            <h3 className="text-lg font-semibold text-black">Generated Meme</h3>
           </div>
           <div className="p-4">
             {result.url && (
@@ -578,17 +576,17 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             
             {result.template && (
               <div className="mb-4">
-                <h4 className="font-medium text-gray-700 mb-1">Template Used</h4>
-                <p className="bg-white p-3 rounded border border-gray-200">{result.template}</p>
+                <h4 className="font-medium text-black mb-1">Template Used</h4>
+                <p className="bg-white p-3 rounded border border-gray-200 text-black">{result.template}</p>
               </div>
             )}
             
             {result.captions && result.captions.length > 0 && (
               <div className="mb-4">
-                <h4 className="font-medium text-gray-700 mb-1">Captions</h4>
+                <h4 className="font-medium text-black mb-1">Captions</h4>
                 <div className="bg-white p-3 rounded border border-gray-200">
                   {result.captions.map((caption, index) => (
-                    <p key={index} className="mb-1">• {caption}</p>
+                    <p key={index} className="mb-1 text-black">• {caption}</p>
                   ))}
                 </div>
               </div>
@@ -602,17 +600,17 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         return (
           <div className="mt-6 bg-red-50 border border-red-200 rounded-lg overflow-hidden">
             <div className="bg-red-100 p-3 border-b border-red-200">
-              <h3 className="text-lg font-semibold text-gray-800">Image Analysis Results</h3>
+              <h3 className="text-lg font-semibold text-black">Image Analysis Results</h3>
             </div>
             <div className="p-4">
               <div className="mb-4">
-                <h4 className="font-medium text-gray-700 mb-1">Original Caption</h4>
-                <p className="bg-white p-3 rounded border border-gray-200">{result.original_caption}</p>
+                <h4 className="font-medium text-black mb-1">Original Caption</h4>
+                <p className="bg-white p-3 rounded border border-gray-200 text-black">{result.original_caption}</p>
               </div>
               
               <div className="mb-4">
-                <h4 className="font-medium text-gray-700 mb-1">AI Response</h4>
-                <p className="bg-white p-3 rounded border border-gray-200 whitespace-pre-wrap">{result.ai_response}</p>
+                <h4 className="font-medium text-black mb-1">AI Response</h4>
+                <p className="bg-white p-3 rounded border border-gray-200 whitespace-pre-wrap text-black">{result.ai_response}</p>
               </div>
             </div>
           </div>
@@ -622,17 +620,17 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
           return (
             <div className="mt-6 bg-teal-50 border border-teal-200 rounded-lg overflow-hidden">
               <div className="bg-teal-100 p-3 border-b border-teal-200">
-                <h3 className="text-lg font-semibold text-gray-800">Tweet Analysis Results</h3>
+                <h3 className="text-lg font-semibold text-black">Tweet Analysis Results</h3>
               </div>
               <div className="p-4">
                 <div className="mb-4">
-                  <h4 className="font-medium text-gray-700 mb-1">Extracted Text</h4>
-                  <p className="bg-white p-3 rounded border border-gray-200">{result.extracted_text}</p>
+                  <h4 className="font-medium text-black mb-1">Extracted Text</h4>
+                  <p className="bg-white p-3 rounded border border-gray-200 text-black">{result.extracted_text}</p>
                 </div>
                 
                 <div className="mb-4">
-                  <h4 className="font-medium text-gray-700 mb-1">Analysis</h4>
-                  <div className="bg-white p-3 rounded border border-gray-200 whitespace-pre-wrap">
+                  <h4 className="font-medium text-black mb-1">Analysis</h4>
+                  <div className="bg-white p-3 rounded border border-gray-200 whitespace-pre-wrap text-black">
                     {typeof result.analysis === 'string' 
                       ? result.analysis 
                       : JSON.stringify(result.analysis, null, 2)}
@@ -641,10 +639,10 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
                 
                 {result.additional_processing && Object.keys(result.additional_processing).length > 0 && (
                   <div className="mb-4">
-                    <h4 className="font-medium text-gray-700 mb-1">Additional Information</h4>
+                    <h4 className="font-medium text-black mb-1">Additional Information</h4>
                     <div className="bg-white p-3 rounded border border-gray-200">
                       {Object.entries(result.additional_processing).map(([key, value]) => (
-                        <p key={key}><strong>{key}:</strong> {value}</p>
+                        <p key={key} className="text-black"><strong className="text-black">{key}:</strong> {value}</p>
                       ))}
                     </div>
                   </div>
@@ -657,7 +655,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
             return (
               <div className="mt-6 bg-teal-50 border border-teal-200 rounded-lg overflow-hidden">
                 <div className="bg-teal-100 p-3 border-b border-teal-200">
-                  <h3 className="text-lg font-semibold text-gray-800">Sentiment Analysis Results</h3>
+                  <h3 className="text-lg font-semibold text-black">Sentiment Analysis Results</h3>
                 </div>
                 <div className="p-4">
                   {result.analysis && result.analysis.analysis && (
@@ -665,11 +663,11 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
                       {/* Emotions Section */}
                       {result.analysis.analysis.emotion_percentages && (
                         <div className="mb-4">
-                          <h4 className="font-medium text-gray-700 mb-1">Emotions Detected</h4>
+                          <h4 className="font-medium text-black mb-1">Emotions Detected</h4>
                           <div className="bg-white p-3 rounded border border-gray-200">
                             {Object.entries(result.analysis.analysis.emotion_percentages).map(([emotion, percentage]) => (
                               <div key={emotion} className="flex justify-between items-center mb-1">
-                                <span>{emotion}</span>
+                                <span className="text-black">{emotion}</span>
                                 <div className="flex items-center">
                                   <div className="w-32 bg-gray-200 rounded-full h-2.5 mr-2">
                                     <div 
@@ -677,7 +675,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
                                       style={{ width: `${percentage}%` }}
                                     ></div>
                                   </div>
-                                  <span className="text-sm">{percentage.toFixed(1)}%</span>
+                                  <span className="text-sm text-black">{percentage.toFixed(1)}%</span>
                                 </div>
                               </div>
                             ))}
@@ -688,8 +686,8 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
                       {/* Sentiment Description */}
                       {result.analysis.analysis.sentiment_description && (
                         <div className="mb-4">
-                          <h4 className="font-medium text-gray-700 mb-1">Sentiment Description</h4>
-                          <p className="bg-white p-3 rounded border border-gray-200">
+                          <h4 className="font-medium text-black mb-1">Sentiment Description</h4>
+                          <p className="bg-white p-3 rounded border border-gray-200 text-black">
                             {result.analysis.analysis.sentiment_description}
                           </p>
                         </div>
@@ -698,10 +696,10 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
                       {/* Tweet Suggestions */}
                       {result.analysis.analysis.tweet_suggestions && result.analysis.analysis.tweet_suggestions.length > 0 && (
                         <div className="mb-4">
-                          <h4 className="font-medium text-gray-700 mb-1">Suggested Responses</h4>
+                          <h4 className="font-medium text-black mb-1">Suggested Responses</h4>
                           <div className="bg-white p-3 rounded border border-gray-200">
                             {result.analysis.analysis.tweet_suggestions.map((suggestion, idx) => (
-                              <div key={idx} className="p-2 mb-2 border-b border-gray-100 last:border-b-0">
+                              <div key={idx} className="p-2 mb-2 border-b border-gray-100 last:border-b-0 text-black">
                                 {suggestion}
                               </div>
                             ))}
@@ -710,7 +708,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
                       )}
                       
                       {/* Original Tweet */}
-                      <div className="mt-4 text-sm text-gray-500">
+                      <div className="mt-4 text-sm text-black">
                         <p>Original tweet: "{result.analysis.analysis.original_tweet}"</p>
                       </div>
                     </>
@@ -718,7 +716,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
                   
                   {/* Error Handling */}
                   {result.analysis && result.analysis.error && (
-                    <div className="bg-red-50 p-3 rounded border border-red-200 text-red-700">
+                    <div className="bg-red-50 p-3 rounded border border-red-200 text-black">
                       Error: {result.analysis.error}
                     </div>
                   )}
@@ -729,8 +727,8 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
       default:
         return (
           <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Result:</h3>
-            <pre className="bg-white p-3 rounded border border-gray-200 overflow-x-auto">
+            <h3 className="text-lg font-semibold text-black mb-2">Result:</h3>
+            <pre className="bg-white p-3 rounded border border-gray-200 overflow-x-auto text-black">
               {JSON.stringify(result, null, 2)}
             </pre>
           </div>
@@ -747,7 +745,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         <div className={`${agent.color} p-6 flex justify-between items-center`}>
           <div className="flex items-center space-x-3">
             <span className="text-4xl">{agent.icon}</span>
-            <h2 className="text-2xl font-bold text-gray-800">{agent.name}</h2>
+            <h2 className="text-2xl font-bold text-black">{agent.name}</h2>
           </div>
           <button 
             onClick={onClose}
@@ -759,7 +757,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         
         {/* Body */}
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-180px)]">
-          <p className="text-gray-600 mb-6">{agent.description}</p>
+          <p className="text-black mb-6">{agent.description}</p>
           
           <form onSubmit={handleSubmit}>
             {renderInputForm()}
@@ -785,7 +783,7 @@ const AgentModal = ({ agent, onClose, baseUrl }) => {
         
         {/* Footer */}
         <div className="p-4 border-t border-gray-200 bg-gray-50">
-          <p className="text-sm text-gray-500 text-center">
+          <p className="text-sm text-black text-center">
             Endpoint: {baseUrl}{agent.endpoint}
           </p>
         </div>

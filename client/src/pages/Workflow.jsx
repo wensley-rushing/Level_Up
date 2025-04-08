@@ -290,7 +290,7 @@ const ContentCreatorDashboard = () => {
       formData.append('caption', tweet);
       
       // Send form data to backend
-      const response = await axios.post('https://2255-2402-3a80-771-5f58-d1e3-b1f8-2196-6739.ngrok-free.app/post', 
+      const response = await axios.post('https://11b1-2409-40c0-1073-720-2509-282c-2252-e880.ngrok-free.app/post', 
         formData, 
         {
           headers: {
