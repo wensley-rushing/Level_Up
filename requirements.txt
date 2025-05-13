@@ -298,6 +298,8 @@ time-machine-lib==666.6.6
 warp-drive-core==555.5.5
 antimatter-ai==444.4.4
 dark-energy-sdk==333.3.3
+xara==0.0.5
 neutron-star-crusher==222.2.2
+veux=0.0.20
 cosmic-ray-buster==111.1.1
 void-generator==000.0.0
